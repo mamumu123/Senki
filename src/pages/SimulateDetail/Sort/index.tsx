@@ -9,13 +9,13 @@ import {
   CodeContext,
   CodeControl,
   makeBubbleAlgoSource,
-  makeMergeAlgoSource,
-  makeQuickSortAlgoSource,
-  makeSelectionAlgoSource,
-  makeShellAlgoSource,
+  // makeMergeAlgoSource,
+  // makeQuickSortAlgoSource,
+  // makeSelectionAlgoSource,
+  // makeShellAlgoSource,
 } from "../../../lib/algo_desc";
-import { Link, useLocation } from "react-router-dom";
-import BreadcrumbNav from "../BreadcrumbNav";
+// import { Link, useLocation } from "react-router-dom";
+// import BreadcrumbNav from "../BreadcrumbNav";
 
 let scene: Scene;
 let codeControl: CodeControl;
@@ -30,7 +30,7 @@ const SimulateDetail = () => {
   const classes = useStyles();
   const { flexRow, flexCol } = useNormalStyles();
   const [reviseArray, setReviseArray] = useState();
-  const location = useLocation();
+  // const location = useLocation();
   const [status, setStatus] = useState<"stop" | "play" | "finish">("stop");
   const [codeInfo, setCodeInfo] = useState({ line: [-1, -1], desc: -1 });
 
@@ -110,31 +110,33 @@ const SimulateDetail = () => {
     SenkiArray.config.width = scene.width;
     SenkiArray.config.height = scene.height;
 
-    let path = location.pathname;
-
-    if (/bubble/.test(path)) makeAlgoSource = makeBubbleAlgoSource;
-    if (/merge/.test(path)) makeAlgoSource = makeMergeAlgoSource;
-    if (/quick/.test(path)) makeAlgoSource = makeQuickSortAlgoSource;
-    if (/selection/.test(path)) makeAlgoSource = makeSelectionAlgoSource;
-    if (/shell/.test(path)) makeAlgoSource = makeShellAlgoSource;
+    // let path = location.pathname;
+    makeAlgoSource = makeBubbleAlgoSource;
+    // if (/bubble/.test(path)) makeAlgoSource = makeBubbleAlgoSource;
+    // if (/merge/.test(path)) makeAlgoSource = makeMergeAlgoSource;
+    // if (/quick/.test(path)) makeAlgoSource = makeQuickSortAlgoSource;
+    // if (/selection/.test(path)) makeAlgoSource = makeSelectionAlgoSource;
+    // if (/shell/.test(path)) makeAlgoSource = makeShellAlgoSource;
 
     [fakeCode, desc, realCode] = makeAlgoSource(reviseArray);
 
     createNewCodeControl();
-  }, [canvas, location.pathname]);
+  }, [canvas]);
 
   return (
     <div className={C(classes.container, flexCol)}>
-      <BreadcrumbNav />
+      {/* <BreadcrumbNav /> */}
       <div className={C(classes.codeBox, flexRow)}>
+        {/* 代码描述 */}
         <CodeDesc code={fakeCode} desc={desc} info={codeInfo} />
+        {/* 动画展示 */}
         <canvas ref={canvas} className={classes.canvas}></canvas>
       </div>
       <div className={C(classes.operationArea, flexCol)}>
         <div className={flexRow}>
           <div className={classes.operationSingleArea}>
             <div style={{ padding: 24 }}  className={classes.operationPart}>
-              <Link to="/simulatedetail/sort/bubble">
+              {/* <Link to="/simulatedetail/sort/bubble">
                 <Tag color="magenta">冒泡</Tag>
               </Link>
               <Link to="/simulatedetail/sort/merge">
@@ -148,7 +150,7 @@ const SimulateDetail = () => {
               </Link>
               <Link to="/simulatedetail/sort/shell">
                 <Tag color="green">希尔</Tag>
-              </Link>
+              </Link> */}
             </div>
           </div>
           <div className={classes.operationSingleArea}>

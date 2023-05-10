@@ -14,7 +14,7 @@ export default class Histogram extends Group {
 
   cell = {
     maxV: 0,
-    width: 0,
+    width: 0, // ？？
     fullWidth: 0,
     realHalfSpace: 0,
     left: 0,
@@ -86,6 +86,7 @@ export default class Histogram extends Group {
     rect.name = "rect";
 
     const text = new SenkiText(this.data[idx], this.cell.fullWidth / 2, 0);
+    // console.log('text', this.data[idx])
     text.name = "text";
 
     const group = this.cell.newTargets[idx].item;
@@ -276,6 +277,13 @@ export default class Histogram extends Group {
     onFinished();
   }
 
+  /**
+   * 
+   * @param {*} flag init | add | del
+   * @param {*} idx index
+   * @param {*} v  data
+   * @returns 
+   */
   updateCellProfile(flag, idx, v) {
     if (flag === "init") {
       this.data = v;
@@ -286,17 +294,22 @@ export default class Histogram extends Group {
       this.data.splice(idx, 1);
     }
 
+    // 前一个目标
+    // 这里存的是全部
     this.cell.preTargets = this.cell.newTargets;
 
     const len = this.data.length;
 
+    // ？ 其实直接 max 就行
     this.cell.maxV = this.data.reduce((max, it) => Math.max(max, it), 0);
 
+    //fullWidth ？
     this.cell.fullWidth = Math.min(
       this.maxItemWidth + this.space,
       this.width / len
     );
 
+    // 
     this.cell.width = Math.max(
       this.minItemWidth,
       this.cell.fullWidth - this.space
@@ -323,7 +336,8 @@ export default class Histogram extends Group {
 
     this.cell.newTargets.forEach((t, idx) => {
       t.x = idx * this.cell.fullWidth + this.cell.left;
-      t.h = (this.data[idx] / this.cell.maxV) * this.height;
+      t.h = (this.data[idx] / this.cell.maxV) * this.height; // FIXME: 高度固定，改这里就可以
+      // t.h = this.cell.fullWidth;
     });
   }
 

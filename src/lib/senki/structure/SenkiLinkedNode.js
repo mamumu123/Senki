@@ -43,10 +43,20 @@ class SenkiLinkedNode {
     })
   }
 
+  // 中间 key
   setKey(v) {
     this.key = v;
     SenkiLinkedNode.scheduler.push((next) => {
       this._senkiLeaf.setKey(v)
+      next();
+    });
+  }
+
+  // 变量指向
+  setKeyPoint(v) {
+    this.keyPoint = v;
+    SenkiLinkedNode.scheduler.push((next) => {
+      this._senkiLeaf.setKeyPoint(v)
       next();
     });
   }
@@ -144,6 +154,14 @@ class SenkiLinkedNode {
 
   /** 返回上次设置为 left 的节点 */
   get left() {
+    return this._left;
+  }
+
+  set next(n) {
+    this.left = n;
+  }
+
+  get next() {
     return this._left;
   }
 

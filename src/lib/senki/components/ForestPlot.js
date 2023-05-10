@@ -96,21 +96,36 @@ export class LeafNode extends HierarchyNode {
   borderColor = "#546fc6";
   fillColor = "#ffffff";
   textColor = "#303133";
+  redColor = '#ff00000';
 
   key = ""
+
+  keyPoint = ''
 
   constructor(key, args) {
     super();
     this.key = key
     Object.assign(this, args);
     this.borderWidth *= 2
+    // children 0
     this.add(new Circle({ radius: this.radius, fillColor: this.fillColor, borderColor: this.borderColor, borderWidth: this.borderWidth }))
+    
+    // children 1
     this.add(new SenkiText({ content: this.key, color: this.textColor }, 0, -7));
+
+    // children
+    this.add(new SenkiText({ content: this.keyPoint, color: '#ff0000' }, 0, this.radius + 2));
+    console.log('this.key', this.key)
   }
 
   setKey(key) {
     this.key = key
     this.children[1].content = key
+  }
+
+  setKeyPoint(val) {
+    this.keyPoint = val
+    this.children[2].content = val
   }
 
   flag(color, onFinish) {
@@ -183,12 +198,7 @@ export class ForestPlot extends HierarchyNode {
 
         ctx.strokeWidth = this.lineWidth;
         ctx.strokeStyle = this.borderColor;
-
-        ctx.beginPath();
-        ctx.moveTo(tree.abs.x, tree.abs.y);
-        ctx.lineTo(leaf.abs.x, leaf.abs.y);
-        ctx.closePath();
-        ctx.stroke();
+        drawArrow(ctx, tree.abs.x, tree.abs.y, leaf.abs.x, leaf.abs.y)
 
         ctx.restore();
       }
@@ -347,3 +357,36 @@ function normalize(root, maxX, maxY) {
   root.proportion = [(root._layout.finalX + 3) / (maxX + 6), 1 - root._layout.y / (maxY + 1)];
   for (const leaf of root._leafs) normalize(leaf, maxX, maxY);
 }
+
+function drawArrow(ctx, x1, y1, x2, y2) {
+      const headLength = 20; // 箭头的长度
+      const headAngle = Math.PI / 6; // 箭头的角度，这里是30度
+
+      // 画线段
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.stroke();
+      
+      // FIMXE： 1 /3
+      const targetX = (x1 + 2 * x2) / 3;
+      const targetY = (y1 + 2 * y2) / 3;
+
+      // 计算箭头的角度
+      const angle = Math.atan2(y2 - y1, x2 - x1);
+
+      // 画箭头的一侧
+      ctx.beginPath();
+      ctx.moveTo(targetX, targetY);
+      const newX = targetX - headLength * Math.cos(angle - headAngle);
+      const newY = targetY - headLength * Math.sin(angle - headAngle);
+
+      ctx.lineTo(newX, newY);
+      ctx.stroke();
+
+      // 画箭头的另一侧
+      ctx.beginPath();
+      ctx.moveTo(targetX, targetY);
+      ctx.lineTo(targetX - headLength * Math.cos(angle + headAngle), targetY - headLength * Math.sin(angle + headAngle));
+      ctx.stroke();
+    }
