@@ -39,6 +39,10 @@ export const routes: RouteItem[] = [
     component: SimulateDetail.Tree,
   },
   {
+    path: "/simulatedetail/top",
+    component: SimulateDetail.Top,
+  },
+  {
     path: "/simulatedetail",
     component: SimulateDetail.Sort,
   },

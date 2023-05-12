@@ -1,7 +1,11 @@
 import makeAlgoSource from "../makeAlgoSource";
 
 const makeShower = (arr: number[]) => `
-const temp = ${arr}.reduce((sum, item)=> {
+function ListNode(x){
+    this.val = x;
+    this.next = null;
+}
+const temp = [${arr}].reduce((sum, item)=> {
     const tem = new ListNode(item);
     if(!sum) {
         return tem
@@ -9,18 +13,12 @@ const temp = ${arr}.reduce((sum, item)=> {
         sum.next = tem;
         return sum
     }
-
 })
-
-function ListNode(x){
-    this.val = x;
-    this.next = null;
-}
+ReverseList(temp);
 function ReverseList(pHead)
 {
     if(!pHead){return null}
     let cur = null
-    
     while(pHead){
         let tem = pHead.next;
         pHead.next = cur
@@ -32,47 +30,34 @@ function ReverseList(pHead)
 `;
 
 const desc = [
-  "【最小堆】初始化堆",
-  "插入节点",
-  "插入节点",
-  "插入节点",
-  "插入节点",
-  "插入节点",
-  "删除堆顶",
-  "替换两个节点值",
-  "获取父节点,求除2的商",
-  "获取左节点,求除2的商",
-  "获取右节点,求除2的商",
-  "尝试上移节点",
-  "尝试下移节点",
-  "插入节点",
-  "删除堆顶"
+  "【链表】初始化",
+  "调用翻转函数",
+  "暂存链表的下一个节点",
+  "pHead 的 next 指向新链表",
+  "cur 指向新链表的表头",
+  "pHead 指向下一个节点",
+  "翻转结束，cur 链表就是翻转后的链表"
 ];
 
-const makeRealCode = (ar: number[]) => `
-
-//import { SenkiLinkedNode } from "senki"
-
+const makeRealCode = (arr: number[]) => `
 let h = null;
-let tail = null; //(async () => {
-
-const arr = ${ar};
-
-for (let item of arr) {
+let tail = null;  
+for (let item of [${arr}]) {
   const tem = new SenkiLinkedNode(item);
-  globalThis.xxx = tem;
-
   if (!tail) {
     h = tem;
     tail = tem;
   } else {
-    tail.left = tem;
+    tail.next = tem;
     tail = tem;
   }
-} //})();
+}
+await wait({line: [1, 13], desc: 1});
+await wait({line: [14, 14], desc: 2});
 
+await ReverseList(h);
 
-function ReverseList(pHead) {
+async function ReverseList(pHead) {
   if (!pHead) {
     return null;
   }
@@ -80,24 +65,33 @@ function ReverseList(pHead) {
   let cur = null;
 
   while (pHead) {
-    let tem = pHead.left;
-    pHead.left = cur;
+
+    // if(tem) {
+    //   tem.setKeyPoint('');
+    // }
+    let tem = pHead.next;
+    // tem.setKeyPoint('temp');
+    // await wait({line: [20, 20], desc: 3});
+    
+    pHead.next = cur;
+    // await wait({line: [21, 21], desc: 4}); // pHead 的 next 指向新链表
+
 
     if (cur && cur.setKeyPoint) {
       cur.setKeyPoint('');
     }
-
     cur = pHead;
     cur.setKeyPoint('cur');
-    pHead = tem;
-  }
+    // await wait({line: [22, 22], desc: 5}); // cur 指向新链表的表头
 
+    pHead = tem;
+    await wait({line: [23, 23], desc: 6}); // pHead 指向暂存的下一个节点
+    
+
+  }
   return cur;
 }
-
-const xxx = ReverseList(h);
-console.log(xxx);
-
+await wait({line: [25, 25], desc: 7}); // pHead 指向下一个节点
 `;
 
 const makeReverseAlgoSource = (arr: number[] = []) => {
@@ -106,6 +100,7 @@ const makeReverseAlgoSource = (arr: number[] = []) => {
   for (let i = arr.length; i < 5; i++) {
     arr.push(Math.ceil(Math.random() * 100));
   }
+  console.log('arr', arr, typeof arr)
   return makeAlgoSource(makeShower(arr), desc, makeRealCode(arr));
 };
 

@@ -39,6 +39,11 @@ const treeOptions = [
   },
 ];
 
+const codeOption = [{
+  link: 'linkReverse',
+  title: '链表反转',
+}]
+
 const sortIllustration = {
   rest:
     "url('https://k-1258976754.cos.ap-shanghai.myqcloud.com/senki/sorting.png')",
@@ -84,7 +89,11 @@ const AlgoSimulate = () => {
             />
           </div>
           <div className={classes.algoBox}>
-            <AlgoBox illustration={normalIllustration} />
+            <AlgoBox 
+            title="code"
+            link="top"
+            options={codeOption}
+            illustration={normalIllustration} />
           </div>
           <div className={classes.algoBox}>
             <AlgoBox illustration={normalIllustration} />
