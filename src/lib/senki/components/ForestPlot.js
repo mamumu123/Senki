@@ -115,7 +115,7 @@ export class LeafNode extends HierarchyNode {
 
     // children
     this.add(new SenkiText({ content: this.keyPoint, color: '#ff0000' }, 0, this.radius + 2));
-    console.log('this.key', this.key)
+
   }
 
   setKey(key) {

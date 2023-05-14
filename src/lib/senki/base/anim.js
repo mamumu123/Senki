@@ -77,6 +77,7 @@ export class AnimPlayer {
     this.animProviders[key].shift();
   }
 
+  // 注册动画
   registerAnimResponder(key, fn) {
     if (this.animResponders[key])
       return console.error(

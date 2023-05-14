@@ -63,27 +63,33 @@ async function ReverseList(pHead) {
   }
 
   let cur = null;
+  let tem = null;
 
   while (pHead) {
+    pHead.setKeyPoint('pHead');
 
-    // if(tem) {
-    //   tem.setKeyPoint('');
-    // }
-    let tem = pHead.next;
-    // tem.setKeyPoint('temp');
-    // await wait({line: [20, 20], desc: 3});
+
+    if(tem) {
+      tem.setKeyPoint('');
+    }
+    tem = pHead.next;
+    if(tem){
+      tem.setKeyPoint('temp');
+    }
+    await wait({line: [20, 20], desc: 3});
     
     pHead.next = cur;
-    // await wait({line: [21, 21], desc: 4}); // pHead 的 next 指向新链表
+    await wait({line: [21, 21], desc: 4}); // pHead 的 next 指向新链表
 
 
     if (cur && cur.setKeyPoint) {
       cur.setKeyPoint('');
     }
     cur = pHead;
-    cur.setKeyPoint('cur');
-    // await wait({line: [22, 22], desc: 5}); // cur 指向新链表的表头
-
+    cur.setKeyPoint('cur/pHead');
+    await wait({line: [22, 22], desc: 5}); // cur 指向新链表的表头
+    
+    pHead.setKeyPoint('cur');
     pHead = tem;
     await wait({line: [23, 23], desc: 6}); // pHead 指向暂存的下一个节点
     
