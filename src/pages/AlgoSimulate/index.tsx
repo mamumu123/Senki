@@ -39,10 +39,16 @@ const treeOptions = [
   },
 ];
 
-const codeOption = [{
+const codeOption = [
+  {
   link: 'linkReverse',
   title: '链表反转',
-}]
+},
+{
+  link: 'linkCircle',
+  title: '链表是否有环',
+}
+]
 
 const sortIllustration = {
   rest:

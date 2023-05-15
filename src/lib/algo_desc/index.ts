@@ -6,7 +6,8 @@ export { default as makeShellAlgoSource } from "./sort/shell";
 export { default as makeInorderTraversalAlgoSource } from "./tree/inorderTraversal";
 export { default as makeMinBinaryHeapAlgoSource } from "./tree/minBinaryHeap";
 export { default as makeRedBlackTreeAlgoSource } from "./tree/redBlackTree";
-export { default as makeReverse } from './link/reverse'
+export { default as makeReverse } from './link/reverse';
+export { default as makeCircle } from './link/circle';
 
 export { default as CodeControl } from "./CodeControl";
 export type { CodeContext } from "./CodeControl";

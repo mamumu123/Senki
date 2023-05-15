@@ -162,6 +162,7 @@ export class ForestPlot extends HierarchyNode {
 
   addTree(root, onFinish) {
     this.add(root)
+    // ?
     this.moveLeaf(root, this, this._leafs.length, onFinish);
   }
 

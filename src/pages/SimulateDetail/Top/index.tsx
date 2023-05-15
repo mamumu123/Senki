@@ -9,15 +9,10 @@ import {
   CodeContext,
   CodeControl,
   makeBubbleAlgoSource,
-  // makeMergeAlgoSource,
-  // makeQuickSortAlgoSource,
-  // makeSelectionAlgoSource,
-  // makeShellAlgoSource,
   makeReverse,
+  makeCircle,
 } from "../../../lib/algo_desc";
 import { Link, useLocation } from "react-router-dom";
-// import { Link, useLocation } from "react-router-dom";
-// import BreadcrumbNav from "../BreadcrumbNav";
 
 let scene: Scene;
 let codeControl: CodeControl;
@@ -117,10 +112,7 @@ const SimulateDetail = () => {
     let path = location.pathname;
     console.log('path', path);
     if (/linkReverse/.test(path)) makeAlgoSource = makeReverse;
-    // if (/merge/.test(path)) makeAlgoSource = makeMergeAlgoSource;
-    // if (/quick/.test(path)) makeAlgoSource = makeQuickSortAlgoSource;
-    // if (/selection/.test(path)) makeAlgoSource = makeSelectionAlgoSource;
-    // if (/shell/.test(path)) makeAlgoSource = makeShellAlgoSource;
+    if (/linkCircle/.test(path)) makeAlgoSource = makeCircle;
 
     [fakeCode, desc, realCode] = makeAlgoSource(reviseArray);
 
@@ -143,18 +135,9 @@ const SimulateDetail = () => {
                <Link to="/simulatedetail/top/linkReverse">
                 <Tag color="magenta">链表反转</Tag>
               </Link>
-              {/*<Link to="/simulatedetail/sort/merge">
+              <Link to="/simulatedetail/top/linkCircle">
                 <Tag color="cyan">归并</Tag>
               </Link>
-              <Link to="/simulatedetail/sort/quick">
-                <Tag color="geekblue">快排</Tag>
-              </Link>
-              <Link to="/simulatedetail/sort/selection">
-                <Tag color="purple">选择</Tag>
-              </Link>
-              <Link to="/simulatedetail/sort/shell">
-                <Tag color="green">希尔</Tag>
-              </Link> */}
             </div>
           </div>
           <div className={classes.operationSingleArea}>
